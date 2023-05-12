@@ -1,3 +1,8 @@
+<?php
+  if(isset($_POST["submit"])){
+    
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,19 +19,19 @@
       <h1>Login</h1>
       <div class="input-wrapper">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="example@gmail.com" onBlur="Email()"  />
+        <input type="email" class="input" id="email" name="email" placeholder="example@gmail.com" onBlur="Email()" />
         <p id="format">Invalid email format. Please use the following format: example@gmail.com</p>
       </div>
       <div class="input-wrapper divPassword">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" placeholder="password" onChange="password()" />
+        <input type="password" class="input" name="password" id="password" placeholder="password" onChange="password()" />
         <p id="pass"></p>
         <!-- <span class="toggle-password"><i class="far fa-eye"></i></span> -->
         <a href="#" class="forgot-password">Forgot password?</a>
       </div>
      <!--Remember me-->
       <div class="signin">
-        <button type="submit">Sign in</button>
+        <input type="submit" class="signin-input" value="submit" name="submit">
       </div>
       <div>
         <span class="Google">Or</span>
@@ -49,45 +54,7 @@
       <script src="../src/index.js"></script>
     </form>
     <script src="login-signup.js"></script>
+    
   </body>
 </html>
-
-<?php
-  function connection(){
-    if(mysqli_connect("localhost", "root", "")){
-      mysqli_select_db("e-commerce");
-
-    }else{
-      die("couldn't connect to database, refresh the page");
-    }
-  }
-  if(isset($_POST["submit"])){
-    connection();//connect to the database
-    if(isset($_POST["email"])){
-        $query="SELECT user_email FROM customers WHERE user_email={$_POST['email']}";
-        if($answer=mysqli_query($query)){
-          if(mysqli_num_row($answer)==1){
-            if(isset($_POST["password"])){
-            $query="SELECT password FROM customers WHERE password={$_POST['password']}";
-            if($answerpass=mysqli_query($query)){
-              if(mysqli_num_row($answerpass)==1){
-                echo "Password exist in database";
-              }else{
-                echo "Password doesn't exist in database";
-              }
-            }else{
-              die("Wrong query syntax");
-            }  
-          }
-          }else{
-            echo "Email not found. New User? Sign up";
-          }
-          
-        }else{
-          die("wrong query syntax");
-        }
-    }
-
-  }
-?>
 
